@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+<data noupdate="1">
+
+        <record id="point_of_sale_rule_user_config" model="ir.rule">
+            <field name="name">Mostrar solo las configuraciones de POS permitidas para el usuario</field>
+            <field name="model_id" ref="point_of_sale.model_pos_config"/>
+            <field name="domain_force">[('id', 'in', user.pos_config_ids.ids)]</field>
+            <field name="groups" eval="[(4, ref('point_of_sale.group_pos_user'))]"/>
+        </record>
+
+        <record id="point_of_sale_rule_manager_config" model="ir.rule">
+            <field name="name">Todas las configuraciones de POS para Manager.</field>
+            <field name="model_id" ref="point_of_sale.model_pos_config"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('point_of_sale.group_pos_manager'))]"/>
+        </record>
+
+        <record id="point_of_sale_rule_user_order" model="ir.rule">
+            <field name="name">Mostrar órdenes de punto de venta solo para configuraciones de punto de venta permitidas.</field>
+            <field name="model_id" ref="point_of_sale.model_pos_order"/>
+            <field name="domain_force">[('config_id', 'in', user.pos_config_ids.ids)]</field>
+            <field name="groups" eval="[(4, ref('point_of_sale.group_pos_user'))]"/>
+        </record>
+
+        <record id="point_of_sale_rule_manager_order" model="ir.rule">
+            <field name="name">Mostrar todos los pedidos de POS para el gerente.</field>
+            <field name="model_id" ref="point_of_sale.model_pos_order"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('point_of_sale.group_pos_manager'))]"/>
+        </record>
+
+        <record id="point_of_sale_rule_user_payment" model="ir.rule">
+            <field name="name">Mostrar pagos de POS solo para configuraciones de POS permitidas.</field>
+            <field name="model_id" ref="point_of_sale.model_pos_payment"/>
+            <field name="domain_force">[('session_id.config_id', 'in', user.pos_config_ids.ids)]</field>
+            <field name="groups" eval="[(4, ref('point_of_sale.group_pos_user'))]"/>
+        </record>
+
+        <record id="point_of_sale_rule_manager_payment" model="ir.rule">
+            <field name="name">Mostrar todos los pagos de POS para el gerente.</field>
+            <field name="model_id" ref="point_of_sale.model_pos_payment"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('point_of_sale.group_pos_manager'))]"/>
+        </record>
+
+</data>
+</odoo>
