@@ -1,0 +1,370 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* pos_cash_in_out_odoo
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-02-03 15:52+0000\n"
+"PO-Revision-Date: 2021-02-03 15:52+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: pos_cash_in_out_odoo
+#: model:ir.model.fields,field_description:pos_cash_in_out_odoo.field_pos_cash_in_out__amount
+msgid "Amount"
+msgstr "Importe"
+
+#. module: pos_cash_in_out_odoo
+#. openerp-web
+#: code:addons/pos_cash_in_out_odoo/static/src/xml/pos.xml:45
+#: code:addons/pos_cash_in_out_odoo/static/src/xml/pos.xml:79
+#: code:addons/pos_cash_in_out_odoo/static/src/xml/pos.xml:144
+#, python-format
+msgid "Amount:"
+msgstr "Cantidad"
+
+#. module: pos_cash_in_out_odoo
+#: model:ir.model,name:pos_cash_in_out_odoo.model_account_bank_statement_line
+msgid "Bank Statement Line"
+msgstr "Línea de extracto bancario"
+
+#. module: pos_cash_in_out_odoo
+#. openerp-web
+#: code:addons/pos_cash_in_out_odoo/static/src/xml/pos.xml:56
+#: code:addons/pos_cash_in_out_odoo/static/src/xml/pos.xml:90
+#: code:addons/pos_cash_in_out_odoo/static/src/xml/pos.xml:193
+#, python-format
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: pos_cash_in_out_odoo
+#: model:ir.model,name:pos_cash_in_out_odoo.model_cash_box_in
+msgid "Cash Box In"
+msgstr "Entrada de caja"
+
+#. module: pos_cash_in_out_odoo
+#: model:ir.model,name:pos_cash_in_out_odoo.model_cash_box_out
+msgid "Cash Box Out"
+msgstr "Salida de caja"
+
+#. module: pos_cash_in_out_odoo
+#: model_terms:ir.ui.view,arch_db:pos_cash_in_out_odoo.inherit_view_pos_config_reports
+msgid "Cash In-Out Configuration"
+msgstr "Configuración de entrada y salida de efectivo"
+
+#. module: pos_cash_in_out_odoo
+#. openerp-web
+#: code:addons/pos_cash_in_out_odoo/static/src/xml/pos.xml:26
+#, python-format
+msgid "Cash In-Out Statement"
+msgstr "Estado de cuenta de entrada y salida de efectivo"
+
+#. module: pos_cash_in_out_odoo
+#. openerp-web
+#: code:addons/pos_cash_in_out_odoo/static/src/xml/pos.xml:128
+#: code:addons/pos_cash_in_out_odoo/static/src/xml/pos.xml:168
+#, python-format
+msgid "Cashier:"
+msgstr "Cajera"
+
+#. module: pos_cash_in_out_odoo
+#: model:ir.model.fields,field_description:pos_cash_in_out_odoo.field_pos_cash_in_out__create_date
+msgid "Create Date"
+msgstr "Fecha de Creación"
+
+#. module: pos_cash_in_out_odoo
+#: model:ir.model.fields,field_description:pos_cash_in_out_odoo.field_pos_cash_in_out__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: pos_cash_in_out_odoo
+#. openerp-web
+#: code:addons/pos_cash_in_out_odoo/static/src/xml/pos.xml:260
+#: selection:pos.cash.in.out,cash_type:0
+#, python-format
+msgid "Credit"
+msgstr "Crédito"
+
+#. module: pos_cash_in_out_odoo
+#. openerp-web
+#: code:addons/pos_cash_in_out_odoo/static/src/xml/pos.xml:259
+#, python-format
+msgid "Date"
+msgstr "fecha"
+
+#. module: pos_cash_in_out_odoo
+#. openerp-web
+#: code:addons/pos_cash_in_out_odoo/static/src/xml/pos.xml:261
+#: selection:pos.cash.in.out,cash_type:0
+#, python-format
+msgid "Debit"
+msgstr "Débito"
+
+#. module: pos_cash_in_out_odoo
+#: model:ir.model.fields,field_description:pos_cash_in_out_odoo.field_pos_cash_in_out__display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: pos_cash_in_out_odoo
+#: model:ir.model.fields,field_description:pos_cash_in_out_odoo.field_pos_config__is_cash_in_out
+msgid "Do Cash In Out From POS"
+msgstr "Hacer efectivo desde POS"
+
+#. module: pos_cash_in_out_odoo
+#. openerp-web
+#: code:addons/pos_cash_in_out_odoo/static/src/xml/pos.xml:132
+#: code:addons/pos_cash_in_out_odoo/static/src/xml/pos.xml:238
+#, python-format
+msgid "Email:"
+msgstr "Email"
+
+#. module: pos_cash_in_out_odoo
+#. openerp-web
+#: code:addons/pos_cash_in_out_odoo/static/src/xml/pos.xml:186
+#: code:addons/pos_cash_in_out_odoo/static/src/xml/pos.xml:244
+#, python-format
+msgid "End Date:"
+msgstr "Fecha final"
+
+#. module: pos_cash_in_out_odoo
+#. openerp-web
+#: code:addons/pos_cash_in_out_odoo/static/src/xml/pos.xml:105
+#: code:addons/pos_cash_in_out_odoo/static/src/xml/pos.xml:209
+#, python-format
+msgid "Exit"
+msgstr "Salida"
+
+#. module: pos_cash_in_out_odoo
+#: model:ir.model.fields,field_description:pos_cash_in_out_odoo.field_pos_cash_in_out__id
+msgid "ID"
+msgstr ""
+
+#. module: pos_cash_in_out_odoo
+#: model:ir.model.fields,field_description:pos_cash_in_out_odoo.field_account_bank_statement_line__is_cash_in_out_entry
+msgid "Is Cash In Out Entry"
+msgstr "Es entrada de efectivo"
+
+#. module: pos_cash_in_out_odoo
+#: model:ir.model.fields,field_description:pos_cash_in_out_odoo.field_pos_cash_in_out____last_update
+msgid "Last Modified on"
+msgstr "Última modificación en"
+
+#. module: pos_cash_in_out_odoo
+#: model:ir.model.fields,field_description:pos_cash_in_out_odoo.field_pos_cash_in_out__write_uid
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: pos_cash_in_out_odoo
+#: model:ir.model.fields,field_description:pos_cash_in_out_odoo.field_pos_cash_in_out__write_date
+msgid "Last Updated on"
+msgstr "Última actualización el"
+
+#. module: pos_cash_in_out_odoo
+#: code:addons/pos_cash_in_out_odoo/models/pos.py:106
+#: code:addons/pos_cash_in_out_odoo/models/pos.py:165
+#, python-format
+msgid "Loss"
+msgstr "Pérdida"
+
+#. module: pos_cash_in_out_odoo
+#. openerp-web
+#: code:addons/pos_cash_in_out_odoo/static/src/js/pos.js:90
+#: code:addons/pos_cash_in_out_odoo/static/src/js/pos.js:200
+#, python-format
+msgid "No Cash Register"
+msgstr "Sin caja registradora"
+
+#. module: pos_cash_in_out_odoo
+#. openerp-web
+#: code:addons/pos_cash_in_out_odoo/static/src/xml/pos.xml:136
+#, python-format
+msgid "Operation:"
+msgstr "Operación"
+
+#. module: pos_cash_in_out_odoo
+#: model:ir.actions.act_window,name:pos_cash_in_out_odoo.action_pos_cash_in_out_odoo
+#: model:ir.ui.menu,name:pos_cash_in_out_odoo.menu_pos_cash_in_out_odoo
+#: model_terms:ir.ui.view,arch_db:pos_cash_in_out_odoo.view_pos_cash_in_out_odoo_form_view
+#: model_terms:ir.ui.view,arch_db:pos_cash_in_out_odoo.view_pos_cash_in_out_odoo_tree_view
+msgid "POS Cash In Out"
+msgstr ""
+
+#. module: pos_cash_in_out_odoo
+#. openerp-web
+#: code:addons/pos_cash_in_out_odoo/static/src/xml/pos.xml:125
+#: code:addons/pos_cash_in_out_odoo/static/src/xml/pos.xml:232
+#, python-format
+msgid "Phone:"
+msgstr "Teléfono"
+
+#. module: pos_cash_in_out_odoo
+#. openerp-web
+#: code:addons/pos_cash_in_out_odoo/static/src/xml/pos.xml:39
+#: code:addons/pos_cash_in_out_odoo/static/src/xml/pos.xml:73
+#: code:addons/pos_cash_in_out_odoo/static/src/xml/pos.xml:162
+#, python-format
+msgid "Please enter amount to withdraw"
+msgstr "Ingrese la cantidad a retirar"
+
+#. module: pos_cash_in_out_odoo
+#: model:ir.model,name:pos_cash_in_out_odoo.model_pos_config
+msgid "Point of Sale Configuration"
+msgstr "Configuración del TPV"
+
+#. module: pos_cash_in_out_odoo
+#. openerp-web
+#: code:addons/pos_cash_in_out_odoo/static/src/xml/pos.xml:196
+#, python-format
+msgid "Print"
+msgstr "Impresión"
+
+#. module: pos_cash_in_out_odoo
+#. openerp-web
+#: code:addons/pos_cash_in_out_odoo/static/src/xml/pos.xml:112
+#: code:addons/pos_cash_in_out_odoo/static/src/xml/pos.xml:216
+#, python-format
+msgid "Print Receipt"
+msgstr "Imprima el recibo"
+
+#. module: pos_cash_in_out_odoo
+#. openerp-web
+#: code:addons/pos_cash_in_out_odoo/static/src/xml/pos.xml:159
+#, python-format
+msgid "Print Statement"
+msgstr "Declaración de impresión"
+
+#. module: pos_cash_in_out_odoo
+#: model:ir.model.fields,field_description:pos_cash_in_out_odoo.field_pos_config__is_print_statement
+msgid "Print Statement Receipt"
+msgstr "Imprimir recibo de estado de cuenta"
+
+#. module: pos_cash_in_out_odoo
+#: code:addons/pos_cash_in_out_odoo/models/pos.py:110
+#: code:addons/pos_cash_in_out_odoo/models/pos.py:169
+#, python-format
+msgid "Profit"
+msgstr "Lucro"
+
+#. module: pos_cash_in_out_odoo
+#. openerp-web
+#: code:addons/pos_cash_in_out_odoo/static/src/xml/pos.xml:140
+#, python-format
+msgid "Purpose:"
+msgstr "Propósito"
+
+#. module: pos_cash_in_out_odoo
+#. openerp-web
+#: code:addons/pos_cash_in_out_odoo/static/src/xml/pos.xml:93
+#, python-format
+msgid "Put Money In"
+msgstr "Ponga dinero"
+
+#. module: pos_cash_in_out_odoo
+#. openerp-web
+#: code:addons/pos_cash_in_out_odoo/static/src/xml/pos.xml:8
+#: code:addons/pos_cash_in_out_odoo/static/src/xml/pos.xml:70
+#, python-format
+msgid "Put Money In (Cash In)"
+msgstr "Cambio"
+
+#. module: pos_cash_in_out_odoo
+#. openerp-web
+#: code:addons/pos_cash_in_out_odoo/static/src/xml/pos.xml:49
+#: code:addons/pos_cash_in_out_odoo/static/src/xml/pos.xml:83
+#, python-format
+msgid "Reason:"
+msgstr "Razón"
+
+#. module: pos_cash_in_out_odoo
+#: model:ir.model.fields,field_description:pos_cash_in_out_odoo.field_pos_cash_in_out__user_id
+msgid "Responsible"
+msgstr "Responsable"
+
+#. module: pos_cash_in_out_odoo
+#. openerp-web
+#: code:addons/pos_cash_in_out_odoo/static/src/xml/pos.xml:172
+#, python-format
+msgid "Select Cashier"
+msgstr "Seleccionar cajera"
+
+#. module: pos_cash_in_out_odoo
+#: model:ir.model.fields,field_description:pos_cash_in_out_odoo.field_pos_cash_in_out__session_id
+msgid "Session"
+msgstr "Sesión"
+
+#. module: pos_cash_in_out_odoo
+#. openerp-web
+#: code:addons/pos_cash_in_out_odoo/static/src/xml/pos.xml:151
+#: code:addons/pos_cash_in_out_odoo/static/src/xml/pos.xml:290
+#, python-format
+msgid "Signature"
+msgstr "Firma"
+
+#. module: pos_cash_in_out_odoo
+#. openerp-web
+#: code:addons/pos_cash_in_out_odoo/static/src/xml/pos.xml:182
+#: code:addons/pos_cash_in_out_odoo/static/src/xml/pos.xml:243
+#, python-format
+msgid "Start Date:"
+msgstr "Fecha de inicio:"
+
+#. module: pos_cash_in_out_odoo
+#. openerp-web
+#: code:addons/pos_cash_in_out_odoo/static/src/xml/pos.xml:59
+#, python-format
+msgid "Take Money Out"
+msgstr "Sacar dinero"
+
+#. module: pos_cash_in_out_odoo
+#. openerp-web
+#: code:addons/pos_cash_in_out_odoo/static/src/xml/pos.xml:18
+#: code:addons/pos_cash_in_out_odoo/static/src/xml/pos.xml:36
+#, python-format
+msgid "Take Money Out (Cash Out)"
+msgstr "Gasto"
+
+#. module: pos_cash_in_out_odoo
+#. openerp-web
+#: code:addons/pos_cash_in_out_odoo/static/src/js/pos.js:91
+#: code:addons/pos_cash_in_out_odoo/static/src/js/pos.js:201
+#, python-format
+msgid "There is no cash register for this PoS Session"
+msgstr "No hay caja registradora para esta sesión de PoS"
+
+#. module: pos_cash_in_out_odoo
+#. openerp-web
+#: code:addons/pos_cash_in_out_odoo/static/src/xml/pos.xml:277
+#, python-format
+msgid "Total:"
+msgstr "Total"
+
+#. module: pos_cash_in_out_odoo
+#: model:ir.model.fields,field_description:pos_cash_in_out_odoo.field_pos_cash_in_out__cash_type
+msgid "Type"
+msgstr "Tipo"
+
+#. module: pos_cash_in_out_odoo
+#. openerp-web
+#: code:addons/pos_cash_in_out_odoo/static/src/xml/pos.xml:235
+#, python-format
+msgid "User:"
+msgstr ""
+
+#. module: pos_cash_in_out_odoo
+#: code:addons/pos_cash_in_out_odoo/models/pos.py:72
+#: code:addons/pos_cash_in_out_odoo/models/pos.py:132
+#, python-format
+msgid "You have to define an 'Internal Transfer Account' in your cash register's journal."
+msgstr "Debe definir una 'Cuenta de transferencia interna' en el diario de su caja registradora."
+
+#. module: pos_cash_in_out_odoo
+#: model:ir.model,name:pos_cash_in_out_odoo.model_pos_cash_in_out
+msgid "pos.cash.in.out"
+msgstr ""
+

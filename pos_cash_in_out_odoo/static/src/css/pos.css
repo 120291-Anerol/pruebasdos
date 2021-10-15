@@ -1,0 +1,41 @@
+
+.cash_in{
+	max-width: 45% !important;
+	font-size: medium !important;
+}
+
+.cash_out{
+	max-width: 45% !important;
+	font-size: medium !important;
+}
+
+.odoo-theme-color{
+	background: #875a7b !important;
+	color: white !important;
+}
+
+.odoo-theme-button{
+	background: #875a7b !important;
+	color: white !important;
+	font-size: 14px !important;
+}
+
+.error1{
+	color: #ec1010 !important;
+	font-size: inherit !important;
+	margin: 5px !important;
+	text-align: center !important;
+}
+
+.popup-table{
+	width: 100% !important;
+	line-height: 4rem !important;
+}
+
+.cashier-selection{
+	padding: 12px !important;
+    min-width: 45% !important;
+    border-radius: 5px !important;
+    background: #ffff !important;
+    font-size: 15px !important;
+}

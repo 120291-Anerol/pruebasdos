@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+	
+		<!-- Add custom js for pos_cash_in_out_odoo -->	    
+		<template id="assets_for_pos_cash_in_out_odoo" inherit_id="point_of_sale.assets">
+			<xpath expr="." position="inside">
+				<link rel="stylesheet" href="/pos_cash_in_out_odoo/static/src/css/pos.css" />
+				<script type="text/javascript" src="/pos_cash_in_out_odoo/static/src/js/CashInButton.js"/>
+				<script type="text/javascript" src="/pos_cash_in_out_odoo/static/src/js/CashInPopup.js"/>
+
+				<script type="text/javascript" src="/pos_cash_in_out_odoo/static/src/js/CashOutButton.js"/>
+				<script type="text/javascript" src="/pos_cash_in_out_odoo/static/src/js/CashOutPopup.js"/>
+
+				<script type="text/javascript" src="/pos_cash_in_out_odoo/static/src/js/CashInOutReceiptScreen.js"/>
+				<script type="text/javascript" src="/pos_cash_in_out_odoo/static/src/js/CashInOutReceipt.js"/>
+				
+				<script type="text/javascript" src="/pos_cash_in_out_odoo/static/src/js/CashInOutStatementButton.js"/>
+				<script type="text/javascript" src="/pos_cash_in_out_odoo/static/src/js/CashInOutStatementPopup.js"/>
+				<script type="text/javascript" src="/pos_cash_in_out_odoo/static/src/js/StatementReportScreen.js"/>
+				<script type="text/javascript" src="/pos_cash_in_out_odoo/static/src/js/StatementSummaryReceipt.js"/>
+			</xpath>
+		</template>
+
+		<record id="inherit_view_pos_config_reports" model="ir.ui.view">
+			<field name="name">inherit.view.pos.config.reports</field>
+			<field name="model">pos.config</field>
+			<field name="inherit_id" ref="point_of_sale.pos_config_view_form"/>
+			<field name="arch" type="xml">
+				<xpath expr="//h2[5]" position="before">
+					<br/>
+					<h2 attrs="{'invisible': [('cash_control', '=', False)]}">Configuracion de retiros</h2>
+					<div class="row mt16 o_settings_container"  attrs="{'invisible': [('cash_control', '=', False)]}">
+						<div id="report" class="col-xs-12 col-md-6 o_setting_box">
+							<div class="o_setting_left_pane">
+								<field name="is_cash_in_out"/>
+							</div>
+							<div class="o_setting_right_pane">
+								<label for="is_cash_in_out"/>
+							</div>
+						</div>
+						<div id="report1" class="col-xs-12 col-md-6 o_setting_box" >
+							<div class="o_setting_left_pane">
+								<field name="is_print_statement"/>
+							</div>
+							<div class="o_setting_right_pane">
+								<label for="is_print_statement"/>
+							</div>
+						</div>
+					</div>
+				</xpath>
+			</field>
+		</record>
+
+
+		<!--  View For POS Cash In Out -->
+		<record id="view_pos_cash_in_out_odoo_tree_view" model="ir.ui.view">
+			<field name="name">pos.cash.in.out.tree.view</field>
+			<field name="model">pos.cash.in.out</field>
+			<field name="arch" type="xml">
+				<tree string="POS Cash In Out">
+					<field name="name"/>
+					<field name="cash_type"/>
+					<field name="user_id"/>
+					<field name="session_id"/>
+					<field name="amount"/>				
+					<field name="create_date"/>	
+				</tree>
+			</field>
+		</record>
+
+
+		<record id="view_pos_cash_in_out_odoo_form_view" model="ir.ui.view">
+			<field name="name">pos.cash.in.out.form.view</field>
+			<field name="model">pos.cash.in.out</field>
+			<field name="arch" type="xml">
+				<form string="POS Cash In Out" version="9.0">
+					<sheet>
+						<group>
+							<group>
+								 <field name="name"/>
+								<field name="cash_type"/>
+								<field name="amount"/>				
+								<field name="create_date"/>
+							</group>
+							<group>
+								<field name="user_id"/>
+								<field name="session_id"/>
+							</group>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="action_pos_cash_in_out_odoo">
+			<field name="name">POS Retiros</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">pos.cash.in.out</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+		<!--  Menu For POS Cash In Out -->
+		<menuitem 
+			id="menu_pos_cash_in_out_odoo" 
+			name="SB Movimientos de efectivo" 
+			parent="point_of_sale.menu_point_rep" 
+			action="action_pos_cash_in_out_odoo" 
+			sequence="10"/>
+
+		<record id="seq_cash_box_in_out" model="ir.sequence">
+			<field name="name">Retiros de efectivo</field>
+			<field name="code">pos.cash.in.out</field>
+			<field name="prefix">SB/Retiro</field>
+			<field name="padding">5</field>
+			<field name="company_id" eval="False" />
+		</record>
+		
+	</data>
+</odoo>

@@ -1,0 +1,17 @@
+Version 14.0.0.1(17/02/21)
+issue solve:-
+	- if everytime user add same reason for cash in/out feature thats getting same number for journal so session not validated
+
+
+Version 14.0.1.1 : (06-04-21)
+		- Update layout of control buttons,Popups and Print Screens for('Cash In' ,'Cash Out' and 'Cash In/out Statement').
+		- Display warning if required field is empty.
+		- Remove unwanted code.
+		- Solved issue of statement print when 'Automatic Receipt Printing' is checked.
+		- Sovled logs warnings.
+
+Version 14.0.1.2 : (13-04-21)
+		- Solve issue of receipt screen close after print of 'Cash In' ,'Cash Out' and 'Cash In/out Statement'.
+
+Version 14.0.1.3 : (21-04-21)
+		- Solve issue of cash in out from session.
