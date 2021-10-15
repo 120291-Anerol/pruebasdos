@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+	
+		<!-- Add custom js for bi_pos_stock -->	    
+		<template id="assets_for_bi_pos_stock" inherit_id="point_of_sale.assets">
+			<xpath expr="." position="inside">
+				<script type="text/javascript" src="/bi_pos_stock/static/src/js/Chrome.js"></script>
+				<script type="text/javascript" src="/bi_pos_stock/static/src/js/SyncStock.js"></script>
+				<script type="text/javascript" src="/bi_pos_stock/static/src/js/models.js"/>
+				<script type="text/javascript" src="/bi_pos_stock/static/src/js/Screens/ProductScreen.js"></script>
+				<script type="text/javascript" src="/bi_pos_stock/static/src/js/Screens/ProductsWidget.js"></script>
+				<script type="text/javascript" src="/bi_pos_stock/static/src/js/Screens/ReceiptScreen.js"></script>
+			</xpath>
+		</template>
+		
+	</data>
+</odoo>
