@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- License URL : <https://store.webkul.com/license.html/> -->
+<odoo>
+	<data>
+		<record id="view_pos_config_form_inherit" model="ir.ui.view">
+			<field name="name">POS configuration</field>
+			<field name="model">pos.config</field>
+			<field name="inherit_id" ref="point_of_sale.pos_config_view_form"/>
+			<field name="arch" type="xml">
+				<xpath expr="//label[@for='cash_control']/following-sibling::div[2]" position="after">	
+					 <div class="content-group mt16" attrs="{'invisible': [('cash_control', '=', False)]}">
+						<div class="row mt16">
+							<label string="Limite permitido de efectivo" for="cash_threshold" class="col-md-3 o_light_label"/>
+							<field name="cash_threshold"/>
+						</div>
+						<div class="row mt16">
+							<label string="Retiro recomendado" for="cash_withdraw" class="col-md-3 o_light_label"/>
+							<field name="cash_withdraw"/>
+						</div>
+					</div>
+				</xpath>
+			</field>
+		</record>	
+	</data>
+</odoo>

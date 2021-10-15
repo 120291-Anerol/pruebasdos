@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- License URL : <https://store.webkul.com/license.html/> -->
+<templates id="template" xml:space="preserve">
+	<t t-name="CashPopupWidget" owl="1">
+		<div class="modal-dialog">
+			<div class="popup popup-textinput" style="height:211px !important">
+				<p class="title">Recordatorio</p>
+
+				
+				
+				<div class="body">
+					<p id='cash_message' class="message"></p>
+				</div>
+				
+				
+				<div class="footer">
+				<!--		
+					<div class="button confirm" style='width:126px;' t-on-click="cancel">
+						Do It Later
+					</div>
+					<div class="button" style='width:126px;' id="now" t-on-click="open_cash_out_popup">
+						Take Money Out 
+					</div>
+				-->	
+					
+					
+				</div>
+			</div>
+		</div>
+	</t>
+	
+	<t t-name="SuccessNotifyPopupWidget" owl="1">
+		<div class="modal-dialog">
+			<div class="popup popup-textinput" style="border-radius:5px; height:220px" >
+				<div class="cash_out_status" style="height:80px;width:80px;margin-top:15px;">
+					<div class="show_tick draw"></div>
+				</div>
+				<h2 id="quote_status" style="color:#5cb85c"><t t-esc="props.message || 'Order Sent !!!!!'"/></h2>
+			</div>
+		</div>
+	</t>
+
+	<t t-name="CashOutPopupWidget" owl="1">
+		<div class="modal-dialog" id="sunny-test">
+			<div class="popup popup-textinput" style="height:368px !important">
+				<p class="title"><t t-esc=" props.title || 'Take Money Out' " /></p>
+				<div class="body" style="height:200px;">
+					<table>
+						<tr>
+							<th>Amount</th>
+							<td style="padding:4px">
+								<input id="amount_out" style="display:block;margin-left:11px;" type="number" name="discount"/>
+							</td>
+						</tr>
+						<tr>
+							<th></th>
+							<td>
+								<div id="wk-warning">*Amount should not greater than Withdrawal amount.</div>
+							</td>
+						</tr>
+						<tr>
+							<th>Reason</th>
+							<td style="padding:4px">
+								<textarea  id="reason_out" style="display:block" rows="3" cols="30" name="comment" form="usrform" placeholder="Describe why you want to take money from the cash register."></textarea>
+							</td>
+						</tr> 
+					</table>
+				</div>
+				<div class="footer">					
+					<div class="button cash_apply">
+					   Proceed
+					</div>
+					<div class="button cancel">
+						Cancel
+					</div>
+				</div>
+			</div>
+		</div>
+	</t>
+</templates>
