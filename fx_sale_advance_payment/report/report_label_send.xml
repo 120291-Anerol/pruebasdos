@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+  
+<!--  Template de Reportes -->
+
+        <template id="label_order_sent">
+    <t t-call="web.basic_layout">
+        <t t-foreach="docs" t-as="o">
+            <div class="page">
+                <div class="row">
+                    <div class="col-xs-12 ">
+                        <t t-if="o.warehouse_id.partner_id">
+                            <div><strong>SUCURSAL</strong></div>
+                            <div t-field="o.warehouse_id.partner_id"
+                                t-field-options='{"widget": "contact", "fields": ["name"]}'/>
+                                <span t-field="o.warehouse_id.partner_id.street2"/>
+                                <div>CP: <span t-field="o.warehouse_id.partner_id.zip"/>, <span t-field="o.warehouse_id.partner_id.city"/>, <span t-field="o.warehouse_id.partner_id.state_id.name"/></div>
+                                <div>Tel: <span t-field="o.warehouse_id.partner_id.phone"/> / <span t-field="o.warehouse_id.partner_id.mobile"/></div>
+                                <div>Email: <span t-field="o.warehouse_id.partner_id.email"/></div>
+                            <div>VAT: <span t-field="o.user_id.company_id.vat"/></div>
+                        </t>
+                        <!-- <h5>Cliente: </h5>
+                        <div t-field="o.partner_id"
+                            t-field-options='{"widget": "contact", "fields": ["address", "name", "phone", "fax"], "no_marker": true, "phone_icons": true}'/> -->
+                        <t t-if="o.state != 'sale'">
+                            <h3 class="text-center">Cotizacion # <span t-field="o.name"/></h3>
+                        </t>
+                        <t t-if="o.state == 'sale'">
+                            <h3 class="text-center">Venta # <span t-field="o.name"/></h3>
+                        </t>
+                        <t t-if="o.total_payment == True">
+                            <h3><strong>Pagado</strong></h3>
+                        </t>
+                        Fecha Venta: <span t-field="o.date_order"/><br/>
+                        <h3 t-esc="o.partner_id.name"/>
+                        <t t-if="o.partner_id">
+                            <div><strong>DIRECCION ENTREGA</strong></div>
+                            <div t-field="o.partner_id"
+                                t-field-options='{"widget": "contact"}'/>
+                                <span t-field="o.partner_id.street2"/>
+                                <div>CP: <span t-field="o.partner_id.zip"/>, <span t-field="o.partner_id.city"/>, <span t-field="o.partner_id.state_id.name"/></div>
+                                <div>Tel: <span t-field="o.partner_id.phone"/> / <span t-field="o.partner_id.mobile"/></div>
+                                <div>Email: <span t-field="o.partner_id.email"/></div>
+                                <div>VAT: <span t-field="o.partner_id.vat"/></div>
+                        </t>
+
+                    </div>
+
+                </div>
+
+                <div class="row">
+                </div>
+                <div class="row text-center mb16">
+                    <div class="col-4" name="right_box">
+                        <img t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', o.name, 600, 100)" style="width:300px;height:50px;" alt="Barcode"/>
+                    </div>
+                </div>
+
+                
+            </div>
+        </t>
+    </t>
+</template>
+
+<record id="report_label_action" model="report.paperformat">
+    <field name="name">Etiqueta de Envio (Tamaño)</field>
+    <field name="format">custom</field>
+    <field name="page_height">62</field>
+    <field name="page_width">100</field>
+    <field name="orientation">Landscape</field>
+    <field name="margin_top">2</field>
+    <field name="margin_bottom">2</field>
+    <field name="margin_left">2</field>
+    <field name="margin_right">2</field>
+    <field name="header_spacing">10</field>
+    <field name="dpi">100</field>
+</record>
+
+        <report 
+            id="report_label_action_send"
+            string="Etiqueta de Envio"
+            model="sale.order" 
+            report_type="qweb-pdf"
+            file="easy_counter_sales_management.label_order_sent" 
+            name="easy_counter_sales_management.label_order_sent"
+        />
+
+        <record id="report_label_action_send" model="ir.actions.report">
+            <field name="paperformat_id" ref="easy_counter_sales_management.report_label_action"/>
+            <field name="print_report_name">'Etiqueta_'+object.name+'.pdf'</field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="inherit_view_sale_view_order_form" model="ir.ui.view">
+            <field name="name">sale.order.form</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <!-- <field name="groups_id" eval="[(4, ref('account.group_account_invoice'))]"/> -->
+            <field name="arch" type="xml">
+                <xpath expr="//header//button[@name='action_cancel']" position="before">
+                    <button name="btn_advance_payment" string="Realizar Pago"
+                        type="object" class="btn-primary"
+                        attrs="{'invisible': [('state', 'in', ['draft', 'cancel'])]}" icon="fa-money"/>
+                    
+                    <!-- <button name="print_ticket" string="Ticket" type="object" icon="fa-print" attrs="{'invisible': [('state', 'in', ['done', 'cancel'])]}"/> -->
+
+                    <button name="re_inviced_public" string="Refacturar" type="object" icon="fa-cogs" attrs="{'invisible':[('invoice_status','!=','invoiced')]}" confirm="Este pedido ya fue facturado, este proceso creara una nueva Factura, quieres continuar ?"/>
+
+                </xpath>
+                <xpath expr="//div[@name='button_box']" position="inside">
+                    <button name="action_view_adv_payments" type="object" class="oe_stat_button" icon="fa-money"
+                        attrs="{'invisible': [('adv_payment_ids', '=', [])]}">
+                        <field name="adv_payment_ids" widget="statinfo" string="Pagos"/>
+                    </button>
+                    <button name="recalculate_prices" string="(Recalcular Precios)" type="object" colspan="4" icon="fa-cogs" attrs="{'invisible':[('state','in',('sale','done'))]}"/>
+                </xpath>
+                <notebook position="before">
+                    <group attrs="{'invisible':[('state','in',('draft','sent','cancel'))]}">
+                        <group></group>
+                        <group>
+                            <field name="total_payment" readonly="1" />
+                            <field name="payment_exception" attrs="{'readonly':[('state','in',('done','cancel'))]}"/>
+                            <field name="re_invoiced" invisible="1" />
+                        </group>
+                    </group>
+                    <separator string="Lectura Codigo Barras" attrs="{'invisible':[('state','in',('sale','done','cancel'))]}"/>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="product_on_read" placeholder="COD000+4" default_focus="1" attrs="{'invisible':[('state','in',('sale','done','cancel'))]}"/>
+                        </h1>
+                    </div>
+                </notebook>
+
+                <notebook position="inside">
+                    <page string="Pagos aplicados">
+                        <group>
+                            <field name="payments_apply_ids"  nolabel="1"/>
+                        </group>
+                        <group class="oe_subtotal_footer oe_right" colspan="2" name="payment_total_order">
+                            <field name="amount_total_order" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                            <field name="amount_payment" widget="monetary" options="{'currency_field': 'currency_id'}" readonly="1"/>
+                            <div class="oe_subtotal_footer_separator oe_inline o_td_label">
+                                <label for="amount_pending"/>
+                            </div>
+                            <field name="amount_pending" nolabel="1" class="oe_subtotal_footer_separator" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                        </group>
+                        <div class="oe_clear"/>
+                    </page>
+                </notebook>
+
+
+            </field>
+        </record>
+
+        <record id="inherit_view_invoice_view_order_form" model="ir.ui.view">
+            <field name="name">account.move.form</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@name='button_box']" position="inside">
+                    <button name="action_view_adv_sale_orders" type="object" class="oe_stat_button" icon="fa-money" >
+                        <!-- attrs="{'invisible': [('sale_ids', '=', [])]}"> -->
+                        <field name="orders_count" widget="statinfo" string="Ventas"/>
+                    </button>
+                </xpath>
+                <field name="state" position="before">
+                        <button name="reconcile_payments_sale_order" type="object" string="Conciliar Pagos Ventas" icon="fa-money" class="oe_highlight" attrs="{'invisible':[('state','!=','posted')]}"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_sale_advance_account_payment_form" model="ir.ui.view">
+            <field name="name">account.payment.form</field>
+            <field name="model">account.payment</field>
+            <field name="arch" type="xml">
+                <form string="Pago Avanzado">
+                    <group>
+                        <group>
+                            <field name="amount" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="currency_id" options="{'no_create': True, 'no_open': True}" groups="base.group_multi_currency" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                        </group>
+                        <group>
+                            <field name="easy_refund" readonly="1" force_save="1"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="journal_id"  options="{'no_create':True, 'no_create_edit':True}" attrs="{'readonly': [('state', '!=', 'draft')]}" domain="[('type', 'in', ('bank', 'cash'))]"/>
+                        </group>
+                        <group>
+                            <field name="create_in_state_sale" required="1"/>   
+                        </group>
+                    </group>
+                    <group col="4">
+                        <field name="hide_payment_method" invisible="1"/>
+                        <field name="payment_method_id" string=" " widget="radio" attrs="{'invisible': [('hide_payment_method', '=', True)], 'readonly': [('state', '!=', 'draft')]}"/>
+                        <field name="payment_method_code" invisible="1"/>
+                        <field name="available_payment_method_ids" invisible="1"/>
+                        <field name="suitable_journal_ids" invisible="1" />
+                        <field name="payment_type" invisible="1"/>
+                        <field name="partner_type" invisible="1"/>
+                        <field name="partner_id" invisible="1"/>
+                        <field name="state" invisible="1"/>
+                    </group>
+                    <footer>
+                        <button name="create_sale_adv_payment" type="object" string="Confirmar Pago" class="btn-primary" icon="fa-cogs"/>
+                        <button string="Cancelar" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</odoo>

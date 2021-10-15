@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+  
+<!--  Template de Reportes -->
+
+        <template id="template_easy_ticket">
+        <t t-call="web.html_container">
+        <t t-foreach="docs" t-as="o">
+            <div class="page">
+                <div class="row">
+                    <div class="col-xs-12 text-center">
+                        <h3 t-esc="o.user_id.company_id.name"/>
+                        <div t-field="o.user_id.company_id.partner_id"
+                            t-field-options='{"widget": "contact", "fields": ["address", "name", "phone", "fax"], "no_marker": true, "phone_icons": true}'/>
+                           <div>RFC: <span t-field="o.user_id.company_id.vat"/></div>
+                        <t t-if="o.warehouse_id.partner_id">
+                            <div><strong>SUCURSAL</strong></div>
+                            <div t-field="o.warehouse_id.partner_id"
+                                t-field-options='{"widget": "contact", "fields": ["name"]}'/>
+                                <span t-field="o.warehouse_id.partner_id.street2"/>
+                                <div>CP: <span t-field="o.warehouse_id.partner_id.zip"/>, <span t-field="o.warehouse_id.partner_id.city"/>, <span t-field="o.warehouse_id.partner_id.state_id.name"/></div>
+                                <div>Tel: <span t-field="o.warehouse_id.partner_id.phone"/> / <span t-field="o.warehouse_id.partner_id.mobile"/></div>
+                                <div>Email: <span t-field="o.warehouse_id.partner_id.email"/></div>
+                        </t>
+                        <!-- <h5>Cliente: </h5>
+                        <div t-field="o.partner_id"
+                            t-field-options='{"widget": "contact", "fields": ["address", "name", "phone", "fax"], "no_marker": true, "phone_icons": true}'/> -->
+                        <t t-if="o.state != 'sale'">
+                            <h3>Cotizacion: <span t-field="o.name"/></h3>
+                        </t>
+                        <t t-if="o.state == 'sale'">
+                            <h3>Venta: <span t-field="o.name"/></h3>
+                        </t>
+                        Vendedor: <span t-field="o.user_id"/><br/>
+                        Fecha: <span t-field="o.date_order"/><br/>
+                    </div>
+                </div>
+
+                <div class="row">
+                </div>
+
+                <table class="table table-condensed">
+                    <thead>
+                        <tr>
+                            <th>Descripcion</th>
+                            <th class="text-right">Cantidad</th>
+                            <th class="text-right">Precio</th>
+                            <th class="text-right">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr t-foreach="o.order_line" t-as="line">
+                            <td><span t-field="line.name"/></td>
+                            <td class="text-center">
+                                
+                                <span t-field="line.product_uom_qty"/><br/><span t-field="line.product_uom.name"/>
+                            </td>
+                            <td class="text-right">
+                                
+                                <span t-field="line.price_unit"/>
+                            </td>
+                            <td class="text-right">
+                                
+                                <span t-esc="line.price_unit * line.product_uom_qty"/>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="row">
+                    <div class="col-xs-6 pull-right">
+                        <table class="table table-condensed">
+                            <tr class="border-black">
+                                <td><strong>Subtotal</strong></td>
+                                <td class="text-right">
+                                    <strong><span t-field="o.amount_untaxed"/></strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Impuestos</strong></td>
+                                <td class="text-right">
+                                    <strong><span t-field="o.amount_tax"/></strong>
+                                </td>
+                            </tr>
+                            <tr class="border-black">
+                                <td><strong>Total</strong></td>
+                                <td class="text-right">
+                                    <strong><span t-field="o.amount_total"/></strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Importe Pagado</strong></td>
+                                <td class="text-right">
+                                    <strong><span t-esc="'$ {:0,.2f}'.format(o.amount_payment+o.easy_refund)"/></strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Cambio</strong></td>
+                                <td class="text-right">
+                                    <strong><span t-esc="'$ {:0,.2f}'.format(o.easy_refund)"/></strong>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                        
+                    <div class="col-xs-12 text-center">
+                        <div><strong>Plazo de Pago:</strong><span t-field="o.payment_term_id"/></div>
+                        <div><strong>Cajero: </strong> <span t-field="user.name"/></div>
+                       
+                    </div>
+
+                    <div class="col-xs-12 text-center">
+                        <!-- <t t-if="o.total_payment">
+                            <center><h3>Pagado</strong></h3></center>
+                        </t> -->
+                        <strong><p t-if="o.total_payment" style="border-style: dashed;text-align: center;">Pagado</p></strong>
+                        <br/>
+                        <center><div>Gracias por su compra.</div></center>
+                    </div>
+
+                </div>
+                
+            </div>
+        </t>
+    </t>
+</template>
+
+<record id="ticket_format_easy" model="report.paperformat">
+    <field name="name">Ticket Ventas Mostrador</field>
+    <field name="format">custom</field>
+    <field name="page_height">80</field>
+    <field name="page_width">190</field>
+    <field name="orientation">Landscape</field>
+    <field name="margin_top">2</field>
+    <field name="margin_bottom">2</field>
+    <field name="margin_left">2</field>
+    <field name="margin_right">2</field>
+    <field name="header_spacing">10</field>
+    <field name="dpi">90</field>
+</record>
+
+       <!--  <report 
+            id="report_eaty_order_ticket"
+            string="Ticket Venta"
+            model="sale.order" 
+            report_type="qweb-pdf"
+            file="fx_sale_advance_payment.template_easy_ticket" 
+            name="fx_sale_advance_payment.template_easy_ticket"
+        /> -->
+
+        <!-- QWeb Reports -->
+        <record id="report_eaty_order_ticket" model="ir.actions.report">
+            <field name="name">Ticket Venta</field>
+            <field name="model">sale.order</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">fx_sale_advance_payment.template_easy_ticket</field>
+            <field name="report_file">fx_sale_advance_payment.template_easy_ticket</field>
+            <field name="print_report_name">'Ticket_'+object.name+'.pdf'</field>
+            <!-- <field name="attachment">(object.state == 'posted') and ((object.name or 'INV').replace('/','_')+'.pdf')</field> -->
+            <field name="binding_model_id" ref="model_sale_order"/>
+            <field name="binding_type">report</field>
+            <field name="paperformat_id" ref="fx_sale_advance_payment.ticket_format_easy"/>
+        </record>
+
+
+        <!-- <record id="report_eaty_order_ticket" model="ir.actions.report">
+            <field name="paperformat_id" ref="fx_sale_advance_payment.ticket_format_easy"/>
+            <field name="print_report_name">'Ticket_'+object.name+'.pdf'</field>
+        </record> -->
+
+    </data>
+</odoo>

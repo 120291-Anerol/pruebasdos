@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+
+
+
+        <!-- Wizard Global Punto de Venta -->
+        <record id="view_pos_order_invoice_wizard" model="ir.ui.view">
+            <field name="name">Pos Orders to Invoice</field>
+            <field name="model">pos.order.invoice_wizard</field>
+            <field name="arch" type="xml">
+                <form string="Pedidos a Facturar">
+                    <group string="Este Asistente permite generar Facturación a Publico en General y Facturación Estandar" col="4" colspan="4">
+                        <field name="date"/>
+                        <field name="journal_id" domain="[('type', '=', 'sale')]"/>
+                        <field name="pay_method_grouped" />
+                        <field name="invoice_detail_products" invisible="1"/>
+                    </group>
+                    <button name="check_all_public_invoice" type="object" string="Todas Publico en General" icon="fa-check-square-o" class="oe_right oe_link"/>
+
+                    <separator string="Ventas a Facturar" colspan="4"/>
+                    <field name="ticket_ids" colspan="4" nolabel="1">
+                        <tree editable="top" create="false">
+                            <field name="date_order"/>
+                            <field name="ticket_id"/>
+                            <field name="pos_reference"/>
+                            <field name="user_id"/>
+                            <field name="amount_total" sum="total"/>
+                            <field name="partner_id"/>
+                            <field name="invoice_2_general_public" attrs="{'readonly': [('partner_id', '=', False)]}" force_save="1"/>
+                        </tree>
+                    </field>
+                    <footer>
+                        <button name="create_invoice_from_sales" string="Crear Facturas" type="object" class="oe_highlight"/>
+                        ó
+                        <button string="Cancelar" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+       <record id="action_pos_order_invoice_fx" model="ir.actions.act_window">
+           <field name="name">Creación Factura Global</field>
+           <field name="res_model">pos.order.invoice_wizard</field>
+           <field name="view_mode">form</field>
+           <field name="target">new</field>
+           <field name="binding_model_id" ref="point_of_sale.model_pos_order"/>
+           <field name="binding_view_types">list</field>
+       </record>
+
+        <!-- Herencia Vistas Facturación - Conciliaciones -->
+
+        <record id="view_account_invoice_pos_reconcile_wizard" model="ir.ui.view">
+            <field name="name">Invoice Reconcile With POS Payments</field>
+            <field name="model">account.invoice.pos_reconcile_with_payments</field>
+            <field name="arch" type="xml">
+                <form string="Invoice Reconcile With POS Payments">
+                    <group string="Wizard to create Payments for each Invoice linking with POS Orders Payments" col="4" colspan="4">
+                        <field name="date"/>
+                    </group>
+                    <footer>
+                        <button name="reconcile_invoice_with_pos_payments" string="Reconcile Payments" type="object" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+       <!-- <record id="action_invoice_pos_reconcile" model="ir.actions.act_window">
+           <field name="name">Conciliación Pagos Pos - Facturación</field>
+           <field name="res_model">account.invoice.pos_reconcile_with_payments</field>
+           <field name="view_mode">form</field>
+           <field name="target">new</field>
+           <field name="binding_model_id" ref="account.model_account_move"/>
+           <field name="binding_view_types">list</field>
+       </record> -->
+                
+
+        <!-- <record id="view_invoice_form_pos_reconcile" model="ir.ui.view">
+            <field name="name">account.invoice.form.pos.reconcile</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">
+                <button name="action_cancel_draft" position="after">
+                    <button states="open" string="Aplicar Pagos de TpV" 
+                            type="action" name="%(argil_pos_invoice.action_invoice_pos_reconcile)d" groups="account.group_account_invoice"/>
+                </button>
+            </field>
+        </record> -->
+
+        <!-- Herencia Vistas Punto de Venta -->
+
+        <record id="global_invoice_pos_view_form" model="ir.ui.view">
+            <field name="name">global.invoice.pos.order.form</field>
+            <field name="model">pos.order</field>
+            <field name="inherit_id" ref="point_of_sale.view_pos_pos_form"/>
+            <field name="arch" type="xml">
+                <notebook position="inside">
+                    <page string="Factura Global" >
+                        <button name="update_concepts_to_global_invoice" string="Actualizar Conceptos Factura Global" type="object" icon="fa-check-square-o"/>
+                            <field name="global_line_ids" readonly="1">
+                                <tree string="Conceptos Facturacion Global" editable="bottom" >
+                                    <field name="product_id" />
+                                    <field name="noidentificacion" />
+                                    <field name="uom_id" />
+                                    <field name="quantity" invisible="1"/>
+                                    <field name="invoice_line_tax_ids" />
+                                    <field name="price_unit" sum="Total Facturacion"/>
+                                </tree>
+                            </field>
+                    </page>
+                </notebook>
+                <field name="fiscal_position_id" position="after">
+                    <field name="payment_tpv_id" readonly="1" />
+                </field>
+            </field>
+        </record>
+
+
+        <!-- Herencia Formas de Pago SAT -->
+
+        <record id="pos_payment_method_payment_method_ext" model="ir.ui.view">
+            <field name="name">pos.payment.method.payment_method</field>
+            <field name="model">pos.payment.method</field>
+            <field name="inherit_id" ref="point_of_sale.pos_payment_method_view_form"/>
+            <field name="arch" type="xml">
+                <field name="company_id" position="before" >
+                    <field name="payment_tpv_id" options="{'no_create': True, 'no_create_edit': True}" required="1"/>
+                </field>
+            </field>
+        </record>
+
+        <!-- Ventas POS -->
+
+        <record id="pos_payment_method_payment_method_ext_tree" model="ir.ui.view">
+            <field name="name">pos.payment.method.payment_method</field>
+            <field name="model">pos.payment.method</field>
+            <field name="inherit_id" ref="point_of_sale.pos_payment_method_view_tree"/>
+            <field name="arch" type="xml">
+                <field name="company_id" position="before" >
+                    <field name="payment_tpv_id" options="{'no_create': True, 'no_create_edit': True}" required="1"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="global_invoice_pos_view_tree" model="ir.ui.view">
+            <field name="name">global.invoice.pos.order.tree</field>
+            <field name="model">pos.order</field>
+            <field name="inherit_id" ref="point_of_sale.view_pos_order_tree"/>
+            <field name="arch" type="xml">
+                <field name="currency_id" position="before">
+                    <header>
+                        <button name='%(action_pos_order_invoice_fx)d' type='action' string='Factura Global' icon="fa-file-pdf-o" />
+                    </header>
+                </field>
+                <field name="partner_id" position="after">
+                    <field name="payment_tpv_id" readonly="1" />
+                </field>
+            </field>
+        </record>
+
+
+        <record id="global_invoice_pos_view_search" model="ir.ui.view">
+            <field name="name">global.invoice.pos.order.search</field>
+            <field name="model">pos.order</field>
+            <field name="inherit_id" ref="point_of_sale.view_pos_order_filter"/>
+            <field name="arch" type="xml">
+                <field name="partner_id" position="after">
+                    <field name="payment_tpv_id" />
+                </field>
+                <group position="inside">
+                    <filter string="Agrupa por Forma de Pago" domain="[]" context="{'group_by':'payment_tpv_id'}" name="por_payment_tpv_id"/>
+                    <filter string="Con Factura" domain="[('account_move','!=',False)]" name="invoice_id_true"/>
+                    <filter string="No Facturado" domain="[('account_move','=',False)]" name="invoice_id_false"/>
+                    <filter string="Por Facturar" domain="[('account_move','=',False),('state','=','paid')]" name="por_facturar"/>
+                    <filter string="Agrupa por Factura" domain="[]" context="{'group_by':'account_move'}" name="agrupar_por_factura"/>
+
+                </group>
+            </field>
+        </record>
+
+        <!-- Wizard Global Ventas -->
+        <record id="view_sale_order_invoice_wizard" model="ir.ui.view">
+            <field name="name">Sale Orders to Invoice</field>
+            <field name="model">sale.order.invoice_wizard</field>
+            <field name="arch" type="xml">
+                <form string="Pedidos a Facturar">
+                    <group string="Este Asistente permite generar Facturación a Publico en General y Facturación Estandar" col="4" colspan="4">
+                        <field name="date"/>
+                        <field name="journal_id" domain="[('type', '=', 'sale')]"/>
+                    </group>
+                    <button name="check_all_public_invoice" type="object" string="Todas Publico en General" icon="fa-check-square-o" class="oe_right oe_link"/>
+
+                    <separator string="Ventas a Facturar" colspan="4"/>
+                    <field name="ticket_ids" colspan="4" nolabel="1">
+                        <tree editable="top" create="false">
+                            <field name="date_order"/>
+                            <field name="ticket_id"/>
+                            <field name="sale_reference"/>
+                            <field name="user_id"/>
+                            <field name="amount_total" sum="total"/>
+                            <field name="partner_id"/>
+                            <field name="invoice_2_general_public" attrs="{'readonly': [('partner_id', '=', False)]}" force_save="1"/>
+                        </tree>
+                    </field>
+                    <footer>
+                        <button name="create_invoice_from_sales" string="Crear Facturas" type="object" class="oe_highlight"/>
+                        ó
+                        <button string="Cancelar" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+            
+        <!-- <act_window
+            name="Creación de Factura Global"
+            id="action_sale_order_invoice"
+            res_model="sale.order.invoice_wizard"
+            binding_model="sale.order"
+            binding_views="list"
+            view_mode="form"
+            target="new"
+            /> -->
+
+       <record id="action_sale_order_invoice_fx" model="ir.actions.act_window">
+           <field name="name">Creación Factura Global</field>
+           <field name="res_model">sale.order.invoice_wizard</field>
+           <field name="view_mode">form</field>
+           <field name="target">new</field>
+           <field name="binding_model_id" ref="sale.model_sale_order"/>
+           <field name="binding_view_types">list</field>
+       </record>
+
+        <!-- Herencia de Objetos y Formularios -->
+
+        <record id="view_partner_pos_invoice_form" model="ir.ui.view">
+            <field name="name">res.partner.pos.invoice.form.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="account.view_partner_property_form"/>
+            <field name="arch" type="xml">
+                <field name="property_account_position_id" position="after" >
+                    <field name="use_as_general_public" 
+                           attrs="{'invisible': [('invoice_2_general_public', '=', True)]}"/>
+                    <field name="invoice_2_general_public" 
+                           attrs="{'invisible': [('use_as_general_public', '=', True)]}"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="product_uom_form_view_pos_invoice" model="ir.ui.view">
+            <field name="name">product.uom.pos.invoice.form.inherit</field>
+            <field name="model">uom.uom</field>
+            <field name="inherit_id" ref="uom.product_uom_form_view"/>
+            <field name="arch" type="xml">
+                <field name="rounding" position="after" >
+                    <field name="use_4_invoice_general_public" />
+                </field>
+            </field>
+        </record>
+
+        <record id="view_res_config_settings_global_invoice" model="ir.ui.view">
+            <field name="name">res.config.settings.pos.invoice.form.inherit</field>
+            <field name="model">res.config.settings</field>
+            <field name="inherit_id" ref="sale.res_config_settings_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@id='sales_settings_invoicing_policy']" position="after">
+                    <div id="global_invoice_settings" class="col-12 col-lg-6 o_setting_box" title="Valores por defecto para el uso de la Factura Global">
+                            <div class="o_setting_right_pane">
+                                <label for="product_for_global_invoice"/>
+                                <div class="text-muted">
+                                    Comodin para los conceptos de la Factura Global.
+                                </div>
+                                <div class="content-group">
+                                    <div class="mt16">
+                                        <field name="product_for_global_invoice" class="o_light_label" options="{'no_create': True, 'no_create_edit': True}"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </xpath>
+            </field>
+        </record>
+
+        <record id="company_form_global_invoice" model="ir.ui.view">
+            <field name="name">company.form.global</field>
+            <field name="model">res.company</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="base.view_company_form"/>
+            <field name="arch" type="xml">
+                <field name="phone" position="before">
+                    <field name="product_for_global_invoice" required="1" domain="[('product_for_global_invoice','=',True)]"/>
+                    <field name="invoice_public_default" />
+                </field>
+            </field>
+        </record>
+
+        <record id="global_invoice_sale_view_form" model="ir.ui.view">
+            <field name="name">global.invoice.sale.order.form</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <notebook position="inside">
+                    <page string="Factura Global" >
+                        <button name="update_concepts_to_global_invoice" string="Actualizar Conceptos Factura Global" type="object" icon="fa-check-square-o"/>
+
+                            <field name="global_line_ids" readonly="1">
+                                <tree string="Conceptos Facturacion Global" editable="bottom" >
+                                    <field name="product_id" />
+                                    <field name="noidentificacion" />
+                                    <field name="uom_id" />
+                                    <field name="quantity" invisible="1"/>
+                                    <field name="invoice_line_tax_ids" />
+                                    <field name="price_unit" sum="Total Facturacion"/>
+                                </tree>
+                            </field>
+                            <separator string="Facturas" attrs="{'invisible':[('invoice_status','!=','invoiced')]}"/>
+                            <field name="invoice_global_ids" widget="many2many_tags" readonly="1"/>
+                            <group attrs="{'invisible':[('invoice_status','!=','invoiced')]}">
+                                <group>
+                                    <field name="type_invoice_global" readonly="1" />
+                                </group>
+                                <group>
+                                    
+                                </group>
+                            </group>
+                    </page>
+                </notebook>
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

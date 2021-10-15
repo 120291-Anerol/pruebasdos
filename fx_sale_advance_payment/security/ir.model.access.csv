@@ -1,0 +1,11 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+sale_order_line_global_concept_access,sale_order.line.global.concept,model_sale_order_line_global_concept,,1,1,1,1
+sale_order_invoice_wizard_access,sale.order.invoice.wizard,model_sale_order_invoice_wizard,,1,1,1,1
+sale_order_invoice_wizard_line_access,sale.order.invoice.wizard.line,model_sale_order_invoice_wizard_line,,1,1,1,1
+pos_order_line_global_concept_access,pos.order.line.global.concept,model_pos_order_line_global_concept,,1,1,1,1
+sale_order_line_global_concept_access,sale.order.line.global.concept,model_sale_order_line_global_concept,,1,1,1,1
+pos_order_invoice_wizard_line_access,pos.order.invoice_wizard.line,model_pos_order_invoice_wizard_line,,1,1,1,1
+pos_order_invoice_wizard_access,pos.order.invoice_wizard,model_pos_order_invoice_wizard,,1,1,1,1
+sale_order_invoice_wizard_line_access,sale.order.invoice.wizard.line,model_sale_order_invoice_wizard_line,,1,1,1,1
+sale_order_invoice_wizard_access,sale.order.invoice_wizard,model_sale_order_invoice_wizard,,1,1,1,1
+account_invoice_pos_reconcile_with_payments_access,account.invoice.pos_reconcile_with_payments,model_account_invoice_pos_reconcile_with_payments,,1,1,1,1
