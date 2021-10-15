@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+		<template id="pos_order_receipt_pdf_template_doc">
+			<t t-call="web.basic_layout">
+				<div class="header" style="font-size:15px;">
+					<div style="width:47%;float:left;">
+						<span t-field="o.date_order" />
+					</div>
+					<div style="width:53%;float:left;">
+						<span t-field="o.pos_reference" />
+					</div>
+				</div>
+				<div class="page" style="font-size:15px;">
+					<span t-set="company" t-value="o.company_id" />
+					<div style="margin:0 auto;padding:0 auto;margin-top:8px;">
+						<div>
+							<span t-esc="company.name" />
+							<br />
+							<t t-if="company.phone">
+								Phone:
+								<span t-esc="company.phone" />
+								<br />
+							</t>
+							<t t-if="o.user_id">
+								User:
+								<span t-field="o.user_id" />
+								<br />
+							</t>
+						</div>
+					</div>
+					<br />
+					<t t-if="o.config_id.receipt_header">
+						<div style='text-align:center'>
+							<t t-esc="o.config_id.receipt_header" />
+						</div>
+						<br />
+					</t>
+					<table width="100%"
+						style="border-collapse:separate;border-spacing:0 4px;">
+						<tr style="text-decoration:underline">
+							<th>Description</th>
+							<th>Qty</th>
+							<th class="text-right">Subtotal</th>
+						</tr>
+						<tr t-foreach="o.lines" t-as="line">
+							<td style="width:48%">
+								<span
+									t-field="line.with_context(display_default_code=False).product_id" />
+								<div t-if="line.discount > 0">
+									<i style="font-weight:italic light !important;color:grey">
+										With a
+										<t t-esc="line.discount" />
+										% discount
+									</i>
+								</div>
+							</td>
+							<td style="width:30%">
+								<span t-field="line.qty" />
+								<span t-field="line.product_id.uom_id" />
+							</td>
+							<td class="text-right" style="width:22%">
+								<span t-field="line.price_subtotal"
+									t-options="{'widget': 'monetary', 'display_currency': o.config_id.currency_id}" />
+							</td>
+						</tr>
+					</table>
+					<table width="100%"
+						style="border-collapse:separate;border-spacing:0px;margin-top:4px;">
+						<tr>
+							<td style="width:75%">Subtotal: </td>
+							<td style="width:25%" class="text-right">
+								<span t-esc="o.amount_total - o.amount_tax"
+									t-options="{'widget': 'monetary', 'display_currency': o.config_id.currency_id}" />
+							</td>
+						</tr>
+						<tr t-foreach="o.get_order_tax_value_in_receipt()"
+							t-as="taxdetail">
+							<td>
+								<span t-esc="taxdetail" />
+							</td>
+							<td class="text-right">
+								<span t-esc="taxdetail_value"
+									t-options="{'widget': 'monetary', 'display_currency': o.config_id.currency_id}" />
+							</td>
+						</tr>
+						<tr t-if="o.get_total_discount_in_receipt() > 0.0">
+							<td>Discount:</td>
+							<td class="text-right">
+								<span t-esc="o.get_total_discount_in_receipt()"
+									t-options="{'widget': 'monetary', 'display_currency': o.config_id.currency_id}" />
+							</td>
+						</tr>
+						<tr style="font-size:20px">
+							<td>Total: </td>
+							<td class="text-right">
+								<span t-field="o.amount_total"
+									t-options="{'widget': 'monetary', 'display_currency': o.config_id.currency_id}" />
+							</td>
+						</tr>
+						<tr>
+							<td colspan="2">
+								<strong>Amount in Words:</strong>
+								<span
+									t-esc="o.config_id.currency_id.amount_to_text(o.amount_total)" />
+							</td>
+						</tr>
+					</table>
+					<table width="100%"
+						style="border-collapse:separate;border-spacing:0 4px;">
+						<tr
+							t-foreach="o.payment_ids.filtered(lambda l: l.amount &gt; 0)"
+							t-as="line">
+							<td style="width:75%">
+								<span t-field="line.payment_method_id" />
+							</td>
+							<td style="width:25%" class="text-right">
+								<span t-esc="line.amount"
+									t-options="{'widget': 'monetary', 'display_currency': o.config_id.currency_id}" />
+							</td>
+						</tr>
+						<tr>
+							<td style="padding-top:3px;">Change:</td>
+							<td style="padding-top:3px;" class="text-right">
+								<span t-esc="abs(o.amount_return)"
+									t-options="{'widget': 'monetary', 'display_currency': o.config_id.currency_id}" />
+							</td>
+						</tr>
+					</table>
+					<t t-if="o.config_id.receipt_footer">
+						<br />
+						<div style='text-align:center'>
+							<t t-esc="o.config_id.receipt_footer" />
+						</div>
+					</t>
+				</div>
+			</t>
+		</template>
+
+		<template id="pos_order_receipt_pdf_template">
+			<t t-call="web.html_container">
+				<t t-foreach="docs" t-as="o">
+					<t
+						t-call="eq_pos_receipt_backend.pos_order_receipt_pdf_template_doc" />
+				</t>
+			</t>
+		</template>
+
+	</data>
+</odoo>
