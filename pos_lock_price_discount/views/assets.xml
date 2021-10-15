@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <template id="pos_lock_price_discount_assets" inherit_id="point_of_sale.assets">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/pos_lock_price_discount/static/src/js/lock_price_discount.js"></script>
+                <script type="text/javascript" src="/pos_lock_price_discount/static/src/js/lock_price_backspace.js"></script>
+            </xpath>
+            <!-- <xpath expr="//script[contains(@src,'NumberBuffer.js')]" position="replace">
+                   <script type="text/javascript" src="/pos_lock_price_discount/static/src/js/lock_price_backspace.js"></script>
+            </xpath> -->
+
+        </template>
+    </data>
+</odoo>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="NumpadWidget" t-inherit="point_of_sale.NumpadWidget" t-inherit-mode="extension" owl="1">
+        <xpath expr="//button[hasclass('mode-button')][1]" position="replace">
+            <button class="mode-button" t-att-class="{
+                                        'selected-mode': props.activeMode === 'quantity',
+                                        'disabled-mode': !hasManualDiscount,
+                                        }"
+                    t-att-disabled="!hasManualDiscount"
+                    t-on-click="changeMode('quantity')">Cant.</button>
+        </xpath>
+    </t>
+
+
+</templates>

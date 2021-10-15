@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="res_users_pos_secutiry_info_extend" model="ir.ui.view">
+        <field name="name">res.users.pos.pin</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form"/>
+        <field name="arch" type="xml">
+          <notebook position="inside">
+            <page string="Punto de Venta">
+              <group>
+                <field name="pos_security_pin" password="1" />
+              </group>
+            </page>
+          </notebook>
+        </field>
+      </record>
+
+    <record id="pos_config_view_form_inherit_pos_global_discounts_extnd" model="ir.ui.view">
+        <field name="name">pos.config.form.inherit.pos.global.discount</field>
+        <field name="model">pos.config</field>
+        <field name="inherit_id" ref="point_of_sale.pos_config_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@class='col-xs-12 col-lg-6 o_setting_box'][2]" position="after">
+                    <div class="col-xs-12 col-md-6 o_setting_box" id="activar_supervisor">
+                        <div class="o_setting_left_pane">
+                            <field name="enable_supervisor"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="enable_supervisor" string="Habilitar Supervisor"/>
+                            <div class="text-muted" id="enable_supervisor">
+                                El Usuario supervisor podra habilitar descuentos y modificar el precio.
+                            </div>
+                            <div class="content-group mt16" attrs="{'invisible' : [('enable_supervisor', '=', False)]}">
+                                <div class="row mt16">
+                                    <label string="Usuario" for="supervisor_id" class="col-md-3 o_light_label"/>
+                                    <field name="supervisor_id" attrs="{'required':[('enable_supervisor','=',True)]}" options="{'no_create': True, 'no_create_edit': True}"/>
+                                </div>
+                            </div>
+                            <div class="content-group mt16" attrs="{'invisible' : [('enable_supervisor', '=', False)]}">
+                                <div class="row mt16">
+                                    <label string="Contraseña" for="supervisor_pin" class="col-md-3 o_light_label"/>
+                                    <field name="supervisor_pin" attrs="{'required':[('enable_supervisor','=',True)]}" password="True"/>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 col-md-6 o_setting_box" id="bloqueo_precio">
+                        <div class="o_setting_left_pane">
+                            <field name="lock_price"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="lock_price" string="Bloqueo Precio"/>
+                            <div class="text-muted" id="lock_price">
+                                Bloqueo y Contraseña Precio.
+                            </div>
+                            <div class="content-group mt16" attrs="{'invisible' : [('lock_price', '=', False)]}">
+                                <div class="row mt16">
+                                    <label string="Contraseña" for="price_password" class="col-md-3 o_light_label"/>
+                                    <field name="price_password" attrs="{'required':[('lock_price','=',True)]}" password="True"/>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 col-md-6 o_setting_box" id="bloqueo_descuento">
+                        <div class="o_setting_left_pane">
+                            <field name="lock_discount"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="lock_discount" string="Bloqueo Descuento"/>
+                            <div class="text-muted" id="lock_discount">
+                                Bloqueo y Contraseña Descuento.
+                            </div>
+                            <div class="content-group mt16" attrs="{'invisible' : [('lock_discount', '=', False)]}">
+                                <div class="row mt16">
+                                    <label string="Contraseña" for="discount_password" class="col-md-3 o_light_label" />
+                                    <field name="discount_password" attrs="{'required':[('lock_discount','=',True)]}" password="True"/>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 col-md-6 o_setting_box" id="bloqueo_cantidad">
+                        <div class="o_setting_left_pane">
+                            <field name="lock_quantity"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="lock_quantity" string="Bloqueo Cantidad"/>
+                            <div class="text-muted" id="lock_quantity">
+                                Bloqueo y Contraseña Cantidad.
+                            </div>
+                            <div class="content-group mt16" attrs="{'invisible' : [('lock_quantity', '=', False)]}">
+                                <div class="row mt16">
+                                    <label string="Contraseña" for="quantity_password" class="col-md-3 o_light_label" />
+                                    <field name="quantity_password" attrs="{'required':[('lock_quantity','=',True)]}" password="True"/>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 col-md-6 o_setting_box" id="bloqueo_eliminar">
+                        <div class="o_setting_left_pane">
+                            <field name="lock_delete"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="lock_delete" string="Bloqueo Eliminar"/>
+                            <div class="text-muted" id="lock_delete">
+                                Bloqueo y Contraseña Eliminar.
+                            </div>
+                            <div class="content-group mt16" attrs="{'invisible' : [('lock_delete', '=', False)]}">
+                                <div class="row mt16">
+                                    <label string="Contraseña" for="delete_password" class="col-md-3 o_light_label" />
+                                    <field name="delete_password" attrs="{'required':[('lock_delete','=',True)]}" password="True"/>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+
+
+            </xpath>
+
+            
+        </field>
+    </record>
+
+</odoo>
