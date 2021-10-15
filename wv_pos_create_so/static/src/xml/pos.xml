@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+   
+    <t t-name="CreateSaleOrderButton" owl="1">
+        <span class="control-button js_create_so">
+            <i class="fa fa-tag"></i>
+            <span>Create Quotation</span>
+        </span>
+    </t>
+
+    <t t-name="CreateSaleOrderPopupWidget" owl="1">
+        <div role="dialog" class="modal-dialog">
+            <Draggable>
+                <div class="popup">
+                    <header class="title drag-handle">
+                        <t t-esc="props.title" />
+                    </header>
+                    <div>
+                       <p style="margin: 7px;margin-left: 37px;font-size: 17px;font-style: italic;float: left;">Enter your note.</p>
+                        <textarea class="wv_note" rows="4" cols="40" placeholder="Enter your note........" t-model="state.inputValue" t-ref="input" name="note"></textarea>
+                
+                    </div>
+                    <footer class="footer centered">
+                        <div class="button cancel" t-on-mousedown.prevent="cancel">
+                            <t t-esc="props.cancelText" />
+                        </div>
+                        <div class="button"  t-on-click="captureChange" >
+                            <t t-esc="props.confirmText" />
+                        </div>
+                        <div class="button"  t-on-click="print_quotation_bill">
+                            Save/Print 
+                        </div>
+                    </footer>
+                </div>
+            </Draggable>
+
+        </div>
+    </t>
+    <t t-name="SaleOrderBillScreenWidget" owl="1">
+        <div class="receipt-screen screen">
+            <div class="screen-content">
+                <div class="top-content">
+                    <!-- <span class="button back" t-on-click="confirm">
+                        <i class="fa fa-angle-double-left"></i>
+                        <span> </span>
+                        <span>Back</span>
+                    </span> -->
+                    <div class="top-content-center">
+                        <h1>Sale Order Receipt</h1>
+                    </div>
+                    <span class="button next highlight" t-on-click="confirm">
+                        <span>Ok</span>
+                        <span> </span>
+                        <i class="fa fa-angle-double-right"></i>
+                    </span>
+                </div>
+                <div class="centered-content">
+                    <div class="button print" t-on-click="printReceipt">
+                        <i class="fa fa-print"></i>
+                        <span> </span>
+                        <span>Print</span>
+                    </div>
+                    <div class="pos-receipt-container">
+                        <OrderReceipt order="currentOrder" isBill="true"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+    <t t-name="SoPrintBillButton" owl="1">
+        <span class="control-button order-printbill">
+            <i class="fa fa-print"></i>
+            <span> </span>
+            <span>Sale Receipt</span>
+        </span>
+    </t>
+    
+    <t t-name="CreateCompleteSaleOrderPopupWidget">
+        <div class="modal-dialog">
+            <div class="popup" style="height:200px">
+                <p class="title">
+                     Sale Order                
+                </p>
+                <div class="content-container ">
+                <p style="margin: 20px;font-size: 22px;float: left;">Sale Order Ref : <t t-esc="widget.options.order_ref" /></p>
+                </div>
+                <div class="footer">
+                    <div class="button cancel">
+                        Ok 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+
+    
+    <t t-name="OrderReceipt" t-inherit="point_of_sale.OrderReceipt" t-inherit-mode="extension" owl="1">
+        <xpath expr="//div[hasclass('after-footer')]" position="before">
+            <t t-if="receipt.order_ref">
+                Sale Order Ref: <t t-esc="receipt.order_ref"/>
+            </t>
+            <br/>
+            <t t-if="receipt.wv_note">
+                Note: <t t-esc="receipt.wv_note"/>
+            </t>
+        </xpath>
+    </t>
+
+</templates>
